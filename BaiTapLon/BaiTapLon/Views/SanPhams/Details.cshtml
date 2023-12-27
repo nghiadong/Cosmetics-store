@@ -1,0 +1,174 @@
+﻿@model BaiTapLon.Models.SanPham
+
+@{
+
+    List<DanhGiaSanPham> listDanhGia = (List<DanhGiaSanPham>)ViewData["DanhGia"];
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/assets/css/product.css">
+</head>
+<div class="main">
+        <div class="grid wide">
+            <div class="productInfo">
+                <div class="row">
+                    <div class="col l-5 m-12 s-12">
+                        <div class="owl-carousel owl-theme" id="sync1">
+                            <a href="#" class="product">
+                                <div class="product__avt" style="background-image: url(@("/assets/img" + Model.HinhAnh))">
+                                </div>
+                            </a>
+                           
+                        </div>
+
+                    </div>
+                    <div class="col l-7 m-12s s-12 pl">
+                        <div class="main__breadcrumb">
+                            <div class="breadcrumb__item">
+                                <a href="#" class="breadcrumb__link">Trang chủ</a>
+                            </div>
+                            <div class="breadcrumb__item">
+                                <a href="#" class="breadcrumb__link">Cửa hàng</a>
+                            </div>
+                            <div class="breadcrumb__item">
+                                <a href="#" class="breadcrumb__link">Hãng DHC</a>
+                            </div>
+                        </div>
+                        <h3 class="productInfo__name">
+                            @Model.TenSanPham
+                        </h3>
+                        <div class="productInfo__price">
+                            @Model.Gia <span class="priceInfo__unit">đ</span>
+                        </div>
+                        <div class="productInfo__addToCart">
+                            <div class="buttons_added">
+                                <input class="minus is-form" type="button" value="-" onclick="minusProduct()">
+                                <input aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number" value="1">
+                                <input class="plus is-form" type="button" value="+" onclick="plusProduct()">
+                            </div>
+                            <button type="submit" data-id="@Model.ID" class="addToCart btn btn--default orange">Thêm vào giỏ</button>
+                        </div>
+                                                <div class="productIndfo__policy ">
+                            <div class="policy bg-1 ">
+                                <img src="/assets/img/policy/policy1.png " class="productIndfo__policy-img "></img>
+                                <div class="productIndfo__policy-info ">
+                                    <h3 class="productIndfo__policy-title ">Giao hàng miễn phí</h3>
+                                    <p class="productIndfo__policy-description ">Cho đơn hàng từ 300K</p>
+                                </div>
+                            </div>
+                            <div class="policy bg-2 ">
+                                <img src="/assets/img/policy/policy2.png " class="productIndfo__policy-img "></img>
+                                <div class="productIndfo__policy-info ">
+                                    <h3 class="productIndfo__policy-title ">Giao hàng miễn phí</h3>
+                                    <p class="productIndfo__policy-description ">Cho đơn hàng từ 300K</p>
+                                </div>
+                            </div>
+                            <div class="policy bg-1 ">
+                                <img src="/assets/img/policy/policy3.png " class="productIndfo__policy-img "></img>
+                                <div class="productIndfo__policy-info ">
+                                    <h3 class="productIndfo__policy-title ">Giao hàng miễn phí</h3>
+                                    <p class="productIndfo__policy-description ">Cho đơn hàng từ 300K</p>
+                                </div>
+                            </div>
+                            <div class="policy bg-2 ">
+                                <img src="/assets/img/policy/policy4.png " class="productIndfo__policy-img "></img>
+                                <div class="productIndfo__policy-info ">
+                                    <h3 class="productIndfo__policy-title ">Giao hàng miễn phí</h3>
+                                    <p class="productIndfo__policy-description ">Cho đơn hàng từ 300K</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="productIndfo__category ">
+                            <p class="productIndfo__category-text"> Danh mục : <a href="# " class="productIndfo__category-link ">@Model.DanhMuc.TenDanhMuc</a></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="productDetail ">
+                <div class="main__tabnine ">
+                    <div class="grid wide ">
+                        <!-- Tab items -->
+                        <div class="tabs ">
+                            <div class="tab-item active ">
+                                Mô tả
+                            </div>
+                            <div class="tab-item ">
+                                Đánh giá
+                            </div>
+                            <div class="line "></div>
+                        </div>
+                        <!-- Tab content -->
+                        <div class="tab-content ">
+                            <div class="tab-pane active ">
+                                <div class="productDes ">
+                                    @Model.MoTa
+                                </div>
+                            </div>
+                            <div class="tab-pane ">
+                                <div class="productDes__ratting ">
+                                    <form asp-action="Create" asp-controller="DanhGiaSanPhams">
+                                        <input type="hidden" name="SanPhamID" value="@Model.ID" />
+                                        <div class="productDes__ratting-title ">Đánh giá của bạn</div>
+                                        <textarea class="ratecomment" name="NoiDung" id=" " cols="30 " rows="1" placeholder="Vui lòng viết đánh giá của bạn "></textarea>
+                                        <input type="submit" class="btn btn--default" value="Đánh giá">
+                                    </form>
+                                </div>
+                                <ul class="rate__list">
+                                @foreach(var item in listDanhGia)
+                                {
+                                    <li class="rate__item">
+                                        <div class="rate__info">
+                                            <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9PFgn_rHIm9i3eIlVr5RwzwY2w8EystHF213wj=s32-c-mo" alt="">
+                                            <h3 class="rate__user">@item.NguoiDung.HoTen</h3>
+                                        </div>
+                                        <div class="rate__comment">@item.NoiDung</div>
+                                    </li>
+                                    
+                                }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main__frame ">
+                <div class="grid wide ">
+ 
+            </div>
+        </div>
+    </div>
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        
+        $(document).ready(function(){
+            $(".addToCart").click(function(){
+                $.ajax({
+                    url: "/GioHangs/Create",
+                    data: {
+                        id: $(this).data("id"),
+                        SoLuong :1,
+                        type: "ajax"
+                    },
+                    success : function(data) {
+                        console.log(data);
+                        Swal.fire({
+                          icon: 'success',
+                          title: 'Thêm vào giỏ hàng thành công!!',
+                          showConfirmButton: false,
+                          timer: 1500
+                        });
+                    },
+                    error: function() {
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Oops...',
+                          text: 'Chưa đăng nhập!!',
+                        })
+                    }
+                });
+            });
+        });
+    </script>
+}

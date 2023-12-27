@@ -1,0 +1,83 @@
+﻿@model List<BaiTapLon.Models.SanPham>
+@{
+    List<DanhMuc> dm = (List<DanhMuc>)ViewData["DanhMuc"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main__tabnine">
+            <div class="grid wide">
+                <!-- Tab items -->
+                <div class="tabs">
+                     @foreach(DanhMuc o in dm)
+                        {
+                            <a asp-action="ViewByIDDanhMuc" asp-controller="SanPhams" asp-route-id="@o.ID">
+                                <div class="tab-item">
+                                    @o.TenDanhMuc
+                            </div> 
+                            </a>
+                           
+                        }         
+                </div>
+                <!-- Tab content -->
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <div class="row">
+                            @foreach(SanPham item in Model)
+                                    {
+                            <div class="col l-2 m-4 s-6">
+                                <div class="product">
+                                
+                                        <a href=@Url.ActionLink("Details","SanPhams",new{id = item.ID})><div class="product__avt" style="background-image: url(@("/assets/img" + item.HinhAnh));"></div></a>
+                                            <div class="product__info">
+                                                <a href=@Url.ActionLink("Details","SanPhams",new{id = item.ID})><h3 class="product__name">@item.TenSanPham</h3></a>
+                                                <div class="product__price">
+                                                    <div class="price__new">@item.Gia<span class="price__unit">đ</span></div>
+                                                </div>
+                                            </div>
+                                            <a href=@Url.ActionLink("Details","SanPhams",new{id = item.ID}) class="viewDetail">Xem chi tiết</a>
+@*                                            <a data-id="@item.ID" class="addToCart">Thêm vào giỏ</a>*@
+                                            <button type="submit" data-id="@item.ID" class="addToCart">Thêm vào giỏ</button>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        
+        $(document).ready(function(){
+            $(".addToCart").click(function(){
+                $.ajax({
+                    url: "/GioHangs/Create",
+                    data: {
+                        id: $(this).data("id"),
+                        SoLuong :1,
+                        type: "ajax"
+                    },
+                    success : function(data) {
+                        console.log(data);
+                        Swal.fire({
+                          icon: 'success',
+                          title: 'Thêm vào giỏ hàng thành công!!',
+                          showConfirmButton: false,
+                          timer: 1500
+                        });
+                    },
+                    error: function() {
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Oops...',
+                          text: 'Chưa đăng nhập!!!',
+                        })
+                    }
+                });
+            });
+        });
+    </script>
+}

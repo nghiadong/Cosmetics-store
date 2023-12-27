@@ -1,0 +1,40 @@
+﻿@model List<BaiTapLon.Models.TinTuc>
+@{
+	Layout = "~/Views/Shared/_Layout123.cshtml";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="./assets/css/new.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets/owlCarousel/owl.carousel.min.js"></script>
+</head>
+    <div class="main">
+        <div class="grid wide">
+            <div class="main__taskbar">
+                <div class="main__breadcrumb">
+                    <div class="breadcrumb__item">
+                        <a href="#" class="breadcrumb__link">Trang chủ</a>
+                    </div>
+                    <div class="breadcrumb__item">
+                        <a href="#" class="breadcrumb__link">Danh sách tin tức</a>
+                    </div>
+                </div>
+            </div>
+            <div class="list-new">
+                @foreach(var item in Model)
+                {
+                <div href="#" class="new-item">
+                    <a href="#" class="new-item__img">
+                        <img src="@("/assets/img" + item.HinhAnh)" alt="">
+                    </a>
+                    <div class="new-item__body">
+                        <a href="#" class="new-item__title">
+                            @item.TenTinTuc
+                       </a>
+                        <p class="new-item__time"> Ngày đăng: @item.NgayDang</p>
+                        <p class="new-item__description">@item.NoiDung</p>
+                    </div>
+                </div>
+               }
+            </div>
+        </div>
+        <script src="./assets/js/commonscript.js"></script>

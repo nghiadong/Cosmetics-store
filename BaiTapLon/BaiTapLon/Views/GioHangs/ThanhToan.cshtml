@@ -1,0 +1,54 @@
+﻿@model List<BaiTapLon.Models.GioHang>
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    Layout = "~/Views/Shared/_Layout123.cshtml";
+    var NguoiDungID = @HttpContextAccessor.HttpContext.Session.GetInt32("ID");
+
+}
+
+
+<div class="grid wide">
+
+    <form style="width: 1000px" asp-action="ThanhToan" asp-controller="GioHangs" method="post">
+            <div class="row">
+                
+                    <div class="col l-7 m-12 s-12">
+                        <div class=""pay-information">
+                            <div class="pay__heading">Thông tin thanh toán</div>
+                            <div class="form-group">
+                                <label for="account" class="form-label">Địa chỉ *</label>
+                                <input  name="DiaChi" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l-5 m-12 s-12">
+                        <div class="pay-order">
+                          <div class="pay__heading">Đơn hàng của bạn</div>
+
+                          <div class="images-container">
+                            @foreach(var item in Model)
+                            {
+                              <div class="pay-info">
+                                <img class="img-fluid" src="@("/assets/img" + item.SanPham.HinhAnh)" width="80" height="80">
+                                <div class="main__pay-text">@item.SanPham.TenSanPham</div>
+                                <div class="main__pay-price">@item.SanPham.Gia * @item.SoLuong</div>
+                              </div>
+                            }
+                          </div>
+
+                          <div class="paying-info">
+                            <div class="main__pay-text speciall">Tổng thành tiền</div>
+                            <div class="main__pay-price">@ViewBag.Tong</div>
+                          </div>
+
+                          <input name="NguoiDungId" value="@NguoiDungID" type="hidden" />
+                          <input name="TongTien" value="@ViewBag.Tong" type="hidden" />
+                          <button asp-route-SanPhamMua="@ViewBag.SanPhamMua" class="btn btn--default">Đặt hàng</button>
+                        </div>
+
+                    </div>
+                
+            </div>
+            </form>
+        </div>

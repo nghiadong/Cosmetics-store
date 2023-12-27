@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
+    <meta name="author" content="Łukasz Holeczek">
+    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+    <title>CoreUI Free Bootstrap Admin Template</title>
+   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <!-- Main styles for this application-->
+    <link href="~/assets/css/style.css" rel="stylesheet">
+    <link href="~/assets/css/crud.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
+      <div class="sidebar-brand d-none d-md-flex">
+        <svg class="sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
+          <use xlink:href="assets/brand/coreui.svg#full"></use>
+        </svg>
+        <svg class="sidebar-brand-narrow" width="46" height="46" alt="CoreUI Logo">
+          <use xlink:href="assets/brand/coreui.svg#signet"></use>
+        </svg>
+      </div>
+      <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
+        <li class="nav-item">
+          <a asp-action="QuanLySanPham" asp-controller="NguoiDung" class="nav-link">
+            <svg class="nav-icon">
+            </svg> Quản lý sản phẩm</a>
+          </li>
+          <li class="nav-item">
+          <a asp-action="QuanLyDonHang" asp-controller="NguoiDung" class="nav-link">
+            <svg class="nav-icon">
+            </svg> Quản lý đơn hàng</a>
+          </li>
+          <li class="nav-item">
+          <a asp-action="QuanLyTinTuc" asp-controller="NguoiDung" class="nav-link">
+            <svg class="nav-icon">
+            </svg> Quản lý tin tức</a>
+          </li>
+        
+      </ul>
+      <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
+    </div>
+    <div class="wrapper">
+      <header class="header header-sticky mb-4">
+        <div class="container-fluid">
+          <button class="header-toggler px-md-0 me-md-3" type="button" onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
+            <svg class="icon icon-lg">
+            </svg>
+          </button><a class="header-brand d-md-none" href="#">
+            <svg width="118" height="46" alt="CoreUI Logo">
+              <use xlink:href="assets/brand/coreui.svg#full"></use>
+            </svg></a>
+          
+          <ul class="header-nav ms-3">
+            <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <div class="avatar avatar-md"><img class="avatar-img" src="/assets/img/product/nghiane.jpg" alt="user@email.com"></div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end pt-0">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" asp-action="Index" asp-controller="SanPhams">
+                  <svg class="icon me-2">
+ 
+                  </svg> Về trang chủ
+                  </a>
+
+                  <a class="dropdown-item" asp-action="DangXuat" asp-controller="NguoiDung">
+                  <svg class="icon me-2">
+                  </svg> Logout
+                  </a>
+              </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="header-divider"></div>
+      </header>
+      <div style="margin-left: 300px" class="body">
+        <div class="container-lg">
+          <div class="row">
+                @RenderBody()
+         
+          
+        </div>
+      </div>
+    </div>
+    <!-- CoreUI and necessary plugins-->
+    <script src="~/assets/js/admin.js"></script>
+
+    <script>
+    </script>
+
+  </body>
+</html>
+<script>
+$(document).ready(function(){
+	// Activate tooltip
+	$('[data-toggle="tooltip"]').tooltip();
+	
+	// Select/Deselect checkboxes
+	var checkbox = $('table tbody input[type="checkbox"]');
+	$("#selectAll").click(function(){
+		if(this.checked){
+			checkbox.each(function(){
+				this.checked = true;                        
+			});
+		} else{
+			checkbox.each(function(){
+				this.checked = false;                        
+			});
+		} 
+	});
+	checkbox.click(function(){
+		if(!this.checked){
+			$("#selectAll").prop("checked", false);
+		}
+	});
+});
+</script>
